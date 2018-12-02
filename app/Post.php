@@ -10,6 +10,12 @@ class Post extends Model
         return $this->hasMany('App\Comment'); // Comment::class
     }
 
+    // $post->user->name
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function addComment($body)
     {
 //        Cách 1
