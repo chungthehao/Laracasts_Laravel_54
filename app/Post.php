@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+
 class Post extends Model
 {
     // $post->comments
@@ -24,7 +26,17 @@ class Post extends Model
             'post_id' => $this->id
         ]);*/
 
-//       Cách 2
+//       Cách 2: use the relationship
         $this->comments()->create(['body' => $body]);
+    }
+
+    public function scopeFilter($query, $filters)
+    {
+        if ($month = $filters['month']) {
+            $query->whereMonth('created_at', Carbon::parse($month)->month); // March => 3, May => 5
+        }
+        if ($year = $filters['year']) {
+            $query->whereYear('created_at', $year);
+        }
     }
 }
