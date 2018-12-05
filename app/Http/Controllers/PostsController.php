@@ -31,11 +31,7 @@ class PostsController extends Controller
             ->filter(request(['month', 'year']))
             ->get();
 
-        $archives = Post::selectRaw('year(created_at) AS year, monthname(created_at) as month, count(*) as published')
-            ->groupBy('year', 'month')
-            ->orderByRaw('min(created_at) desc')
-            ->get()
-            ->toArray();
+//        $archives = Post::archives(); // view composer (AppServiceProvider.php)
 
         return view('posts.index', compact('posts', 'archives'));
     }

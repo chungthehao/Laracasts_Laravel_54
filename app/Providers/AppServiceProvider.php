@@ -15,6 +15,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        /* Mỗi khi load view layouts.sidebar sẽ có sẵn $archives */
+        // Bind $archives với cái view đó.
+        view()->composer('layouts.sidebar', function($view) {
+            $view->with('archives', \App\Post::archives());
+        });
     }
 
     /**
