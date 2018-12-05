@@ -22,3 +22,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Post::class, function (Faker\Generator $faker) {
+    return [
+        'user_id'   => function() {
+            // Tạo 1 user "thiệt" lưu vào db rồi trả id về đây.
+            return factory(App\User::class)->create()->id;
+        },
+        'title'     => $faker->sentence,
+        'body'      => $faker->paragraph,
+    ];
+});
