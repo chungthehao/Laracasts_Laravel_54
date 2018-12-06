@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Repositories\PostsRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class PostsController extends Controller
         $this->middleware('auth')->except('index', 'show');
     }
 
-    public function index()
+    public function index(PostsRepository $postsRepository)
     {
 //        $posts = Post::latest();
 //        $posts = Post::orderBy('created_at', 'desc')->get();
@@ -31,7 +32,13 @@ class PostsController extends Controller
             ->filter(request(['month', 'year']))
             ->get();
 
-//        $archives = Post::archives(); // view composer (AppServiceProvider.php)
+        /* Sử dụng Repository mà ko Automatic Resolution (Automatic Dependency Injection) */
+        /* ~ Passing arguments to a function */
+//        $posts = (new \App\Repositories\PostsRepository)->all();
+        /* Sử dụng inject ngay tại method / action (PostsRepository $postsRepository) */
+//        $posts = $postsRepository->all();
+
+//        $archives = Post::archives(); // đã dùng view composer rồi! (AppServiceProvider.php)
 
         return view('posts.index', compact('posts', 'archives'));
     }
