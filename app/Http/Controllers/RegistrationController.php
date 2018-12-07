@@ -43,6 +43,8 @@ class RegistrationController extends Controller
         // Tự động lấy trường email trong đối tượng $user
         \Mail::to($user)->send(new Welcome($user));
 
+        session()->flash('msg', 'Thanks so much for signing up!');
+
         /* Redirect to ... page */
         return redirect()->home(); // <=> redirect('/')
 

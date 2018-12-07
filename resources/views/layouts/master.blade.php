@@ -49,5 +49,26 @@
     </main><!-- /.container -->
 
     @include('layouts.footer')
+
+    @if ($flashMsg = session('msg'))
+        <script>
+            window.onload = function() {
+                $('#msg-modal').modal('show');
+            }
+
+            setTimeout(function(){ $('#msg-modal').modal('hide'); }, 2000);
+        </script>
+    @endif
+
+    {{-- Msg Modal --}}
+    <div class="modal fade" id="msg-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body alert alert-success mb-0">
+                    <p>{{ $flashMsg }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

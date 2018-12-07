@@ -16,6 +16,9 @@ class PostsController extends Controller
 
     public function index(PostsRepository $postsRepository)
     {
+        #   Chỉ duy nhất 1 request đầu là có thôi (flash mà).
+//        return session('msg');
+
 //        $posts = Post::latest();
 //        $posts = Post::orderBy('created_at', 'desc')->get();
 //        $posts = Post::all();
@@ -77,6 +80,8 @@ class PostsController extends Controller
             'body' => request('body'),
             'user_id' => auth()->id()
         ]);*/
+
+        session()->flash('msg', 'Your post has now been published.');
 
         // And then redirect to the home page
         return redirect('/');
