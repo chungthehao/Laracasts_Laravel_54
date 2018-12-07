@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Welcome;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,10 @@ class RegistrationController extends Controller
 
         /* Sign them in */
         auth()->login($user);
+
+        # Send a welcome email
+        // Tự động lấy trường email trong đối tượng $user
+        \Mail::to($user)->send(new Welcome($user));
 
         /* Redirect to ... page */
         return redirect()->home(); // <=> redirect('/')
