@@ -4,6 +4,16 @@
     <div class="col-md-8 blog-main">
         <h3>{{ $post->title }}</h3>
 
+        @if (count($tags = $post->tags))
+            <ul>
+                @foreach ($tags as $tag)
+                    <li>
+                        <a href="/posts/tags/{{ $tag->name }}">{{ $tag->name }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+
         {{ $post->body }}
 
         <hr>

@@ -24,7 +24,10 @@ class AppServiceProvider extends ServiceProvider
         /* Mỗi khi load view layouts.sidebar sẽ có sẵn $archives */
         // Bind $archives với cái view đó.
         view()->composer('layouts.sidebar', function($view) {
-            $view->with('archives', \App\Post::archives());
+            $archives = \App\Post::archives();
+            $tags = \App\Tag::has('posts')->pluck('name');
+
+            $view->with(compact('archives', 'tags'));
         });
     }
 

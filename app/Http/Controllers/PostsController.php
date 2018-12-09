@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Repositories\PostsRepository;
+use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,10 @@ class PostsController extends Controller
         $this->middleware('auth')->except('index', 'show');
     }
 
-    public function index(PostsRepository $postsRepository)
+    public function index(PostsRepository $postsRepository/*, Tag $tag = null*/)
     {
+        /*return $tag->posts;*/
+
         #   Chỉ duy nhất 1 request đầu là có thôi (flash mà).
 //        return session('msg');
 

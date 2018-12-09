@@ -35,6 +35,7 @@
 
 
 Route::get('/', 'PostsController@index')->name('home');
+Route::get('/posts/tags/{tag}', 'TagsController@index');
 
 Route::get('/posts/create', 'PostsController@create');
 Route::post('/posts', 'PostsController@store')->name('posts.store');
